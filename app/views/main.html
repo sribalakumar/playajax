@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body>
+<script type="text/javascript">
+function loadAjax()
+{
+var firstname="bala";
+var secondname="kumar";
+$.ajax({
+         type: "POST",
+         url: '@{Application.ajax1()}',
+         data: {'fname':firstname, 'sname':secondname}
+        });
+rjson();
+}
+
+</script>
+
+<script type="text/javascript">
+function rjson()
+{
+
+$.getJSON('@{Application.rjson()}',function(data) {      var dummy="Hi "+data.fname+" "+data.sname;
+                                                                                                                    
+                                                          document.getElementById("myDiv").innerHTML=dummy;
+                                                  }
+          );
+}
+</script>
+
+
+
+<h2><div id="myDiv">Let Ajax change this test</div></h2>
+<button type="button" onclick="javascript:loadAjax()"> Change content </button>
+    </body>
+</html>
